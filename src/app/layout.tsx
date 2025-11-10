@@ -39,12 +39,6 @@ export default function RootLayout({
           data-domain="wrapped.vantezzen.io"
           src="https://plausible.io/js/script.tagged-events.js"
         />
-
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8508732166185621"
-          crossOrigin="anonymous"
-        ></Script>
       </body>
     </html>
   );

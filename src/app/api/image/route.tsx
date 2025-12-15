@@ -3,7 +3,7 @@ import Footer from "@/components/Image/Footer";
 import TableRow from "@/components/Image/TableRow";
 import Waves from "@/components/Image/Waves";
 import { ShareImageDataSchema } from "@/lib/types";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 

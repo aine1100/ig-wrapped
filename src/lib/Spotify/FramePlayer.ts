@@ -17,7 +17,7 @@ export default class SpotifyFramePlayer extends EventEmitter {
       const timeout = setTimeout(() => {
         resolve();
         console.error("Spotify IFrame API timed out");
-      }, 7000);
+      }, 20000);
 
       window.onSpotifyIframeApiReady = (IFrameAPI: SpotifyIframeApi) => {
         const element = document.getElementById("spotify");
@@ -75,7 +75,7 @@ export default class SpotifyFramePlayer extends EventEmitter {
         console.error("Spotify IFrame API timed out");
         this.canPlaySongs = false;
         resolve();
-      }, 6000);
+      }, 15000);
 
       const container = document.getElementById("spotify-wrapper");
       this.previousIFrame = this.currentIFrame;

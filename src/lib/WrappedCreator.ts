@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/nextjs";
+import JSZip from "jszip";
 import Wrapped from "./Wrapped";
 import {
   InstagramAccountConnections,
@@ -9,8 +11,6 @@ import {
   InstagramUserData,
   InstagramUserDataSchema,
 } from "./types";
-import JSZip from "jszip";
-import * as Sentry from "@sentry/nextjs";
 
 import debugging from "debug";
 const debug = debugging("WrappedCreator");
@@ -104,7 +104,7 @@ export default class WrappedCreator {
 
     const recentlyUnfollowedFile =
       zip.files[
-        "connections/followers_and_following/recently_unfollowed_accounts.json"
+        "connections/followers_and_following/recently_unfollowed_profiles.json"
       ];
     if (recentlyUnfollowedFile) {
       debug("getAccountConnections: recentlyUnfollowedFile");
@@ -180,7 +180,7 @@ export default class WrappedCreator {
     }
 
     const profilePhotoChangesFile =
-      zip.files["your_instagram_activity/content/profile_photos.json"];
+      zip.files["your_instagram_activity/media/profile_photos.json"];
     if (profilePhotoChangesFile) {
       debug("getAccountInformation: profilePhotoChangesFile");
       const profilePhotoChanges = await this.readZipFile(
@@ -313,7 +313,7 @@ export default class WrappedCreator {
     output.recentSearches = {};
 
     const recentAccountSearchesFile =
-      zip.files["logged_information/recent_searches/account_searches.json"];
+      zip.files["logged_information/recent_searches/profile_searches.json"];
     if (recentAccountSearchesFile) {
       debug("getActivity: recentAccountSearchesFile");
       const recentAccountSearches = await this.readZipFile(
@@ -322,8 +322,8 @@ export default class WrappedCreator {
       output.recentSearches.accounts = this.removeOutdatedEntries(
         recentAccountSearches.searches_user.map((c: any) => ({
           href: "",
-          value: c.string_map_data.Search.value,
-          timestamp: c.string_map_data.Time.timestamp,
+          value: c.title,
+          timestamp: c.string_list_data[0].timestamp,
         }))
       );
     }
@@ -347,9 +347,7 @@ export default class WrappedCreator {
     }
 
     const participatedPollsFile =
-      zip.files[
-        "your_instagram_activity/story_sticker_interactions/polls.json"
-      ];
+      zip.files["your_instagram_activity/story_interactions/polls.json"];
     if (participatedPollsFile) {
       debug("getActivity: participatedPollsFile");
       const participatedPolls = await this.readZipFile(participatedPollsFile);
@@ -363,9 +361,7 @@ export default class WrappedCreator {
     }
 
     const storyLikesFile =
-      zip.files[
-        "your_instagram_activity/story_sticker_interactions/story_likes.json"
-      ];
+      zip.files["your_instagram_activity/story_interactions/story_likes.json"];
     if (storyLikesFile) {
       debug("getActivity: storyLikesFile");
       const storyLikes = await this.readZipFile(storyLikesFile);
@@ -378,8 +374,7 @@ export default class WrappedCreator {
       );
     }
 
-    const storiesFile =
-      zip.files["your_instagram_activity/content/stories.json"];
+    const storiesFile = zip.files["your_instagram_activity/media/stories.json"];
     if (storiesFile) {
       debug("getActivity: storiesFile");
       const stories = await this.readZipFile(storiesFile);
@@ -393,7 +388,7 @@ export default class WrappedCreator {
     }
 
     const profilePhotosFile =
-      zip.files["your_instagram_activity/content/profile_photos.json"];
+      zip.files["your_instagram_activity/media/profile_photos.json"];
     if (profilePhotosFile) {
       debug("getActivity: profilePhotosFile");
       const profilePhotos = await this.readZipFile(profilePhotosFile);

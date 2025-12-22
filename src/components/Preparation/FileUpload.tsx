@@ -2,10 +2,10 @@
 import React from "react";
 import FatHeading from "../Wrapped/FatHeading";
 import { Button } from "../ui/button";
-import { File } from "lucide-react";
+import { File as FileIcon } from "lucide-react";
 import MutedText from "../Wrapped/MutedText";
 
-function FileUpload({ onFileSelect }: { onFileSelect: (file: File) => void }) {
+function FileUpload({ onFileSelect }: { onFileSelect: (_file: File) => void }) {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   return (
@@ -42,7 +42,7 @@ function FileUpload({ onFileSelect }: { onFileSelect: (file: File) => void }) {
             inputRef.current?.click();
           }}
         >
-          <File size={16} className="mr-2" />
+          <FileIcon size={16} className="mr-2" />
           Select ZIP file
         </Button>
       </label>

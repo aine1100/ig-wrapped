@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import WrappedContainer, { WrappedSlideProps } from "./WrappedContainer";
 
-const LoadingPlayerComponent = (props: WrappedSlideProps) => {
+const LoadingPlayerComponent = (_props: WrappedSlideProps) => {
   return (
     <WrappedContainer>
       <Loader2 size={32} className="animate-spin" />
@@ -46,11 +46,11 @@ function WrappedPlayerComponent({
     return () => {
       player.off("update", forceUpdate);
     };
-  }, []);
+  }, [player, props.statistics]);
 
   useEffect(() => {
-    player.spotifyPlayer = spotify;
-  }, [spotify]);
+    player._spotifyPlayer = spotify;
+  }, [spotify, player]);
 
   const Component = player.currentSlide?.component || LoadingPlayerComponent;
 

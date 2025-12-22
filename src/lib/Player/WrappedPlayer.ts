@@ -25,7 +25,7 @@ export type Slide = {
   spotify?: {
     uri: string;
   };
-  skip?: (statistics: Statistics) => boolean;
+  skip?: (_statistics: Statistics) => boolean;
 };
 
 const SLIDES: Slide[] = [
@@ -129,7 +129,7 @@ const SLIDES: Slide[] = [
 export default class WrappedPlayer extends EventEmitter {
   public currentSlide: Slide | null = null;
 
-  constructor(public spotifyPlayer: SpotifyFramePlayer | null = null) {
+  constructor(public _spotifyPlayer: SpotifyFramePlayer | null = null) {
     super();
   }
 
@@ -142,10 +142,10 @@ export default class WrappedPlayer extends EventEmitter {
       }
 
       this.currentSlide = slide;
-      console.log(`Playing slide`, this.currentSlide, this.spotifyPlayer);
-      if (this.currentSlide.spotify && this.spotifyPlayer) {
+      console.log(`Playing slide`, this.currentSlide, this._spotifyPlayer);
+      if (this.currentSlide.spotify && this._spotifyPlayer) {
         console.log(`Playing Spotify song`, this.currentSlide.spotify.uri);
-        await this.spotifyPlayer.playSong(this.currentSlide.spotify.uri);
+        await this._spotifyPlayer.playSong(this.currentSlide.spotify.uri);
         console.log(`Loaded spotify song`);
       }
       trackEvent(`slide-${slide.name}`);

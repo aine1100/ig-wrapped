@@ -1,6 +1,7 @@
 import React from "react";
 import { Statistics } from "@/lib/Wrapped";
 import formatTimeLength from "@/lib/utils/formatTimeLength";
+import Image from "next/image";
 
 function ShareCard({
   statistics,
@@ -42,10 +43,13 @@ function ShareCard({
         <div className="relative">
           <div className="w-64 h-64 rounded-full overflow-hidden border-8 border-zinc-800 shadow-2xl mb-8">
             {statistics.profilePicture ? (
-              <img
+              <Image
                 src={statistics.profilePicture}
                 alt={statistics.name}
+                width={256}
+                height={256}
                 className="w-full h-full object-cover"
+                unoptimized
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">

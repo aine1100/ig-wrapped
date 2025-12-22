@@ -133,22 +133,22 @@ export default class Wrapped {
   }
 
   private calculateStatistic<T>(
-    statistic: new (wrapped: Wrapped) => Statistic<T>
+    _statistic: new (_wrapped: Wrapped) => Statistic<T>
   ): T {
-    const statisticInstance = new statistic(this);
+    const statisticInstance = new _statistic(this);
 
     try {
       return statisticInstance.calculateResult();
     } catch (e) {
       Sentry.captureException(
-        new Error(`Failed to calculate statistic ${statistic.name}`),
+        new Error(`Failed to calculate statistic ${_statistic.name}`),
         {
           extra: {
             originalException: e,
           },
         }
       );
-      console.log(`Failed to calculate statistic ${statistic.name}`, e);
+      console.log(`Failed to calculate statistic ${_statistic.name}`, e);
       return statisticInstance.getDefaultValue();
     }
   }

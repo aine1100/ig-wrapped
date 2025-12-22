@@ -8,9 +8,11 @@ import shareImage from "@/lib/utils/shareImage";
 import { trackEvent } from "@/lib/analytics";
 import Projects from "@/components/Projects";
 import formatTimeLength from "@/lib/utils/formatTimeLength";
+import ShareCard from "../ShareCard";
 
 function Roundup({ statistics }: WrappedSlideProps) {
   const [isLoadingShareImage, setIsLoadingShareImage] = React.useState(false);
+  const shareCardRef = React.useRef<HTMLDivElement>(null);
 
   const { amount: totalWatchTimeAmount, unit: totalWatchTimeUnit } =
     formatTimeLength(statistics.useTime.totalUsageTimeSec);
@@ -278,13 +280,24 @@ function Roundup({ statistics }: WrappedSlideProps) {
             onClick={async () => {
               setIsLoadingShareImage(true);
 
-              const url = getShareUrl(statistics);
-              await shareImage(url);
-              trackEvent("share_image");
+              if (shareCardRef.current === null) {
+                return;
+              }
 
-              setTimeout(() => {
+              try {
+                const { toPng } = await import("html-to-image");
+                const dataUrl = await toPng(shareCardRef.current, { cacheBust: true, pixelRatio: 1 });
+                const link = document.createElement("a");
+                link.download = "instagram-wrapped-card.png";
+                link.href = dataUrl;
+                link.click();
+                trackEvent("share_image_v2");
+              } catch (err) {
+                console.error("Could not generate image", err);
+                trackEvent("share_image_error");
+              } finally {
                 setIsLoadingShareImage(false);
-              }, 1000);
+              }
             }}
             className="mt-12 w-full"
             disabled={isLoadingShareImage}
@@ -294,10 +307,15 @@ function Roundup({ statistics }: WrappedSlideProps) {
             ) : (
               <>
                 <Share2 className="inline-block mr-2" size={16} />
-                Share image
+                Download Share Card
               </>
             )}
           </Button>
+
+          {/* Hidden Share Card for checking layout/generating image */}
+          <div style={{ position: "absolute", top: "-9999px", left: "-9999px" }}>
+            <ShareCard statistics={statistics} forwardedRef={shareCardRef} />
+          </div>
 
           <Projects />
         </div>

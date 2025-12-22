@@ -25,6 +25,7 @@ import UseTimeStatistic, {
 
 export type Statistics = {
   name: string;
+  profilePicture?: string;
   profile: ProfileStatisticResult;
   directMessages: DmStatisticResult;
   activity: ActivityStatisticResult;
@@ -120,6 +121,7 @@ export default class Wrapped {
 
     return {
       name: this.userData.accountInformation.name ?? "you",
+      profilePicture: this.userData.accountInformation.profilePicture,
       profile: this.calculateStatistic(ProfileStatistic),
       directMessages: this.calculateStatistic(DmStatistic),
       activity: this.calculateStatistic(ActivityStatistic),

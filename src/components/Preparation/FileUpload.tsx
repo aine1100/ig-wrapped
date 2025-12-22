@@ -11,18 +11,19 @@ function FileUpload({ onFileSelect }: { onFileSelect: (file: File) => void }) {
   return (
     <div className="w-screen min-h-screen flex justify-center items-center flex-col gap-6 text-center bg-zinc-900 text-starship-400 dark p-6">
       <FatHeading className="text-3xl">
-        Select your Instagram
+        Upload your Instagram Data
         <br />
-        data to get started
+        (ZIP File)
       </FatHeading>
 
       <MutedText className="!text-zinc-200 text-base">
-        Wrapped for Instagram needs your Instagram data to generate your
-        statistics.
+        Please upload the <strong>ZIP file</strong> you received from Instagram.
+        <br />
+        (e.g., "instagram-yourname.zip")
         <br />
         <br />
-        Your data will not be uploaded to any server, all statistics are
-        generated locally in your browser.
+        Do not unzip it. We will process it locally in your browser.
+        <br />
         <br />
         Wrapped for Instagram is{" "}
         <a
@@ -42,7 +43,7 @@ function FileUpload({ onFileSelect }: { onFileSelect: (file: File) => void }) {
           }}
         >
           <File size={16} className="mr-2" />
-          Select file
+          Select ZIP file
         </Button>
       </label>
 

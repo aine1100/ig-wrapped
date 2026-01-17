@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import WrappedContainer, { WrappedSlideProps } from "../WrappedContainer";
 import CountUp from "react-countup";
 import formatTimeLength from "@/lib/utils/formatTimeLength";
+import { Clock } from "lucide-react";
 
 function TotalWatchTime({ statistics }: WrappedSlideProps) {
   const { amount, unit } = formatTimeLength(
@@ -11,47 +12,55 @@ function TotalWatchTime({ statistics }: WrappedSlideProps) {
   const watchTimeMins = Math.round(statistics.useTime.totalUsageTimeSec / 60);
 
   return (
-    <WrappedContainer bg="gradient-blue-green" text="text-white">
-      <div className="flex flex-col items-center justify-center h-full space-y-6 px-4">
-        {/* Context label */}
-        <motion.p
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-xl md:text-2xl lg:text-3xl text-white/80 font-medium"
-        >
-          You used Instagram for
-        </motion.p>
+    <WrappedContainer bg="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" text="text-white">
+      {/* Geometric decorations */}
+      <div className="absolute top-20 left-20 w-32 h-32 border-8 border-blue-400 rotate-12 opacity-30"></div>
+      <div className="absolute bottom-32 right-32 w-40 h-40 bg-cyan-500/20 rounded-full"></div>
+      
+      {/* Sparkles */}
+      <div className="absolute top-40 right-40 text-blue-400 text-5xl opacity-60">✦</div>
+      <div className="absolute bottom-40 left-40 text-cyan-400 text-4xl opacity-60">✦</div>
 
-        {/* Huge number */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
+        {/* Main stat card */}
         <motion.div
-          initial={{ scale: 0, rotate: -10 }}
-          animate={{ scale: 1, rotate: 0 }}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
           transition={{
             type: "spring",
             stiffness: 200,
-            damping: 15,
-            delay: 0.4,
+            damping: 20,
+            delay: 0.2,
           }}
-          className="text-center"
+          className="bg-gradient-to-br from-blue-600 to-blue-500 p-16 md:p-20 rounded-[3rem] shadow-2xl max-w-4xl w-full relative overflow-hidden"
         >
-          <h1 className="text-7xl md:text-9xl lg:text-10xl font-black text-white leading-none mb-4">
-            <CountUp end={watchTimeMins} duration={2.5} />
-          </h1>
-          <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white/90">
-            minutes
-          </p>
-        </motion.div>
+          {/* Background icon */}
+          <Clock className="absolute top-8 right-8 w-32 h-32 opacity-10 text-white" strokeWidth={1.5} />
+          
+          {/* Content */}
+          <div className="relative z-10 text-center">
+            <p className="text-white/80 text-2xl md:text-3xl font-bold uppercase tracking-wider mb-6">
+              You spent
+            </p>
+            
+            <h1 className="text-8xl md:text-[10rem] font-black text-white leading-none mb-6">
+              <CountUp end={watchTimeMins} duration={2.5} />
+            </h1>
+            
+            <p className="text-5xl md:text-7xl font-black text-white mb-8">
+              minutes
+            </p>
 
-        {/* Additional context */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="text-xl md:text-2xl text-white/70 font-semibold"
-        >
-          That's {amount} {unit}!
-        </motion.p>
+            <div className="bg-white/20 backdrop-blur-md px-8 py-4 rounded-full inline-block">
+              <p className="text-2xl md:text-3xl font-bold text-white">
+                That's {amount} {unit}!
+              </p>
+            </div>
+          </div>
+
+          {/* Decorative corner */}
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        </motion.div>
       </div>
     </WrappedContainer>
   );

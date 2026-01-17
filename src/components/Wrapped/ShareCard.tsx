@@ -1,7 +1,6 @@
 import React from "react";
 import { Statistics } from "@/lib/Wrapped";
 import formatTimeLength from "@/lib/utils/formatTimeLength";
-import Image from "next/image";
 
 function ShareCard({
   statistics,
@@ -19,112 +18,227 @@ function ShareCard({
       style={{
         width: 1080,
         height: 1920,
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       }}
-      className="bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 text-white p-16 flex flex-col justify-between relative overflow-hidden font-sans"
+      className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-0 flex flex-col relative overflow-hidden"
     >
-      {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 via-transparent to-pink-600/30 opacity-50"></div>
-
-      {/* Decorative circles */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-40 left-20 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl"></div>
-
-      {/* Header */}
-      <div className="z-10">
-        <h1 className="text-8xl font-black mb-6 leading-none">
-          My Instagram
-          <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300">
-            Wrapped
-          </span>
-        </h1>
-        <p className="text-white/70 text-4xl font-bold">2025 Edition</p>
+      {/* Colorful top stripe */}
+      <div style={{ display: 'flex', height: '64px', width: '100%' }}>
+        <div style={{ flex: 1, backgroundColor: '#3B82F6' }}></div>
+        <div style={{ flex: 1, backgroundColor: '#FACC15' }}></div>
+        <div style={{ flex: 1, backgroundColor: '#EC4899' }}></div>
+        <div style={{ flex: 1, backgroundColor: '#22C55E' }}></div>
+        <div style={{ flex: 1, backgroundColor: '#F97316' }}></div>
       </div>
 
-      {/* Profile Section */}
-      <div className="flex flex-col items-center justify-center z-10 my-16">
-        <div className="relative mb-8">
-          <div className="w-80 h-80 rounded-full overflow-hidden border-8 border-white/20 shadow-2xl backdrop-blur-sm">
-            {statistics.profilePicture ? (
-              <Image
-                src={statistics.profilePicture}
-                alt={statistics.name}
-                width={320}
-                height={320}
-                className="w-full h-full object-cover"
-                unoptimized
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
-                <span className="text-9xl font-black text-white/60">
-                  {statistics.name.charAt(0).toUpperCase()}
-                </span>
-              </div>
-            )}
+      {/* Decorative geometric shapes */}
+      <div style={{
+        position: 'absolute',
+        top: '160px',
+        right: '80px',
+        width: '128px',
+        height: '128px',
+        border: '8px solid #F97316',
+        borderRadius: '50%',
+        opacity: 0.4,
+      }}></div>
+      <div style={{
+        position: 'absolute',
+        bottom: '384px',
+        left: '64px',
+        width: '192px',
+        height: '192px',
+        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+        transform: 'rotate(45deg)',
+      }}></div>
+
+      {/* Sparkle decorations */}
+      <div style={{ position: 'absolute', top: '256px', left: '128px', fontSize: '48px', color: '#FACC15', opacity: 0.6 }}>✦</div>
+      <div style={{ position: 'absolute', top: '384px', right: '192px', fontSize: '40px', color: '#EC4899', opacity: 0.6 }}>✦</div>
+      <div style={{ position: 'absolute', bottom: '33%', left: '192px', fontSize: '32px', color: '#3B82F6', opacity: 0.6 }}>✦</div>
+
+      <div style={{ position: 'relative', zIndex: 10, padding: '80px', display: 'flex', flexDirection: 'column', height: '100%' }}>
+        {/* Header */}
+        <div style={{ marginBottom: '64px', marginTop: '48px' }}>
+          <h1 style={{ fontSize: '120px', fontWeight: 900, lineHeight: 1, marginBottom: '24px', color: 'white' }}>
+            Instagram
+          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+            <h2 style={{ 
+              fontSize: '96px', 
+              fontWeight: 900, 
+              background: 'linear-gradient(to right, #FACC15, #EC4899, #A855F7)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Wrapped
+            </h2>
+            <span style={{ fontSize: '64px' }}>⚡</span>
+          </div>
+          <div style={{ 
+            marginTop: '24px', 
+            display: 'inline-block', 
+            backgroundColor: 'rgba(255,255,255,0.2)', 
+            padding: '16px 32px', 
+            borderRadius: '9999px' 
+          }}>
+            <p style={{ fontSize: '40px', fontWeight: 700, color: 'white' }}>2025</p>
           </div>
         </div>
-        <h2 className="text-6xl font-black text-white mb-3">{statistics.name}</h2>
-        <div className="bg-white/20 backdrop-blur-md px-8 py-3 rounded-full">
-          <p className="text-white/90 text-3xl font-bold">Top Fan 2025</p>
-        </div>
-      </div>
 
-      {/* Stats - Simple Grid with 4 Key Stats */}
-      <div className="grid grid-cols-2 gap-6 z-10 mb-12">
-        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20">
-          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-3">
-            Time Spent
-          </p>
-          <p className="text-7xl font-black text-white leading-none">
-            {totalWatchTimeAmount}
-          </p>
-          <p className="text-4xl font-bold text-white/60 mt-2">
-            {totalWatchTimeUnit}
-          </p>
+        {/* Profile Section */}
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '32px', 
+          marginBottom: '64px', 
+          backgroundColor: 'rgba(30, 41, 59, 0.6)', 
+          padding: '32px', 
+          borderRadius: '24px',
+          border: '4px solid rgba(255,255,255,0.1)',
+        }}>
+          <div style={{ 
+            width: '192px', 
+            height: '192px', 
+            borderRadius: '50%', 
+            overflow: 'hidden',
+            border: '6px solid rgba(255,255,255,0.3)',
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'linear-gradient(135deg, #9333EA, #EC4899)',
+          }}>
+            {statistics.profilePicture ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={statistics.profilePicture}
+                alt={statistics.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <span style={{ fontSize: '80px', fontWeight: 900, color: 'white' }}>
+                {statistics.name.charAt(0).toUpperCase()}
+              </span>
+            )}
+          </div>
+          <div>
+            <h3 style={{ fontSize: '56px', fontWeight: 900, marginBottom: '8px', color: 'white' }}>{statistics.name}</h3>
+            <div style={{ 
+              background: 'linear-gradient(to right, #FACC15, #F97316)', 
+              padding: '8px 24px', 
+              borderRadius: '9999px', 
+              display: 'inline-block' 
+            }}>
+              <p style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>Top Fan</p>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20">
-          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-3">
-            DMs Sent
-          </p>
-          <p className="text-7xl font-black text-white leading-none">
-            {statistics.directMessages.dmSent.toLocaleString()}
-          </p>
+        {/* Stats Grid - Bold Color Blocks */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', flex: 1 }}>
+          {/* Time Stat - Large */}
+          <div style={{ 
+            gridColumn: 'span 2', 
+            background: 'linear-gradient(135deg, #2563EB, #3B82F6)', 
+            padding: '40px', 
+            borderRadius: '32px', 
+            position: 'relative', 
+            overflow: 'hidden' 
+          }}>
+            <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '96px', opacity: 0.1 }}>⏱</div>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '28px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px' }}>
+              Time on IG
+            </p>
+            <p style={{ color: 'white', fontSize: '96px', fontWeight: 900, lineHeight: 1 }}>
+              {totalWatchTimeAmount}
+            </p>
+            <p style={{ color: 'white', fontSize: '48px', fontWeight: 700, marginTop: '8px', opacity: 0.9 }}>
+              {totalWatchTimeUnit}
+            </p>
+          </div>
+
+          {/* DMs Sent */}
+          <div style={{ 
+            background: 'linear-gradient(135deg, #DB2777, #EC4899)', 
+            padding: '32px', 
+            borderRadius: '32px', 
+            position: 'relative', 
+            overflow: 'hidden' 
+          }}>
+            <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '72px', opacity: 0.1 }}>💬</div>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '24px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px' }}>
+              DMs Sent
+            </p>
+            <p style={{ color: 'white', fontSize: '72px', fontWeight: 900, lineHeight: 1 }}>
+              {statistics.directMessages.dmSent.toLocaleString()}
+            </p>
+          </div>
+
+          {/* Stories */}
+          <div style={{ 
+            background: 'linear-gradient(135deg, #EAB308, #F97316)', 
+            padding: '32px', 
+            borderRadius: '32px', 
+            position: 'relative', 
+            overflow: 'hidden' 
+          }}>
+            <div style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '72px', opacity: 0.1 }}>📸</div>
+            <p style={{ color: 'rgba(15,23,42,0.7)', fontSize: '24px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px' }}>
+              Stories
+            </p>
+            <p style={{ color: '#0F172A', fontSize: '72px', fontWeight: 900, lineHeight: 1 }}>
+              {statistics.activity.storiesPosted.toLocaleString()}
+            </p>
+          </div>
+
+          {/* Top Emoji - Special */}
+          <div style={{ 
+            gridColumn: 'span 2', 
+            background: 'linear-gradient(135deg, #9333EA, #6366F1)', 
+            padding: '40px', 
+            borderRadius: '32px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            position: 'relative', 
+            overflow: 'hidden' 
+          }}>
+            <div style={{ position: 'absolute', top: 0, right: 0, width: '256px', height: '256px', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(48px)' }}></div>
+            <div style={{ position: 'relative', zIndex: 10 }}>
+              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '28px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px' }}>
+                Top Emoji
+              </p>
+              <p style={{ color: 'white', fontSize: '48px', fontWeight: 700 }}>
+                Used {statistics.emoji.mostUsedEmoji.count.toLocaleString()} times
+              </p>
+            </div>
+            <div style={{ fontSize: '180px', position: 'relative', zIndex: 10 }}>
+              {statistics.emoji.mostUsedEmoji.emoji}
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20">
-          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-3">
-            Stories
-          </p>
-          <p className="text-7xl font-black text-white leading-none">
-            {statistics.activity.storiesPosted.toLocaleString()}
-          </p>
-        </div>
-
-        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20 flex flex-col items-center justify-center">
-          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-4">
-            Top Emoji
-          </p>
-          <p className="text-9xl">
-            {statistics.emoji.mostUsedEmoji.emoji}
-          </p>
-          <p className="text-3xl font-bold text-white/60 mt-3">
-            ×{statistics.emoji.mostUsedEmoji.count}
-          </p>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="z-10 flex justify-between items-center border-t-2 border-white/20 pt-8">
-        <div>
-          <p className="text-3xl font-black text-white">IG Wrapped</p>
-          <p className="text-white/60 text-2xl mt-1">Privacy-first analytics</p>
-        </div>
-        <div className="text-right">
-          <p className="text-white/60 text-2xl">Get yours at</p>
-          <p className="text-yellow-300 text-3xl font-black mt-1">
-            wrapped.vantezzen.io
-          </p>
+        {/* Footer */}
+        <div style={{ 
+          marginTop: '48px', 
+          paddingTop: '32px', 
+          borderTop: '4px solid rgba(255,255,255,0.2)', 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center' 
+        }}>
+          <div>
+            <p style={{ fontSize: '40px', fontWeight: 900, color: 'white' }}>IG Wrapped</p>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '24px', marginTop: '4px' }}>Your year in review</p>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '24px' }}>Get yours at</p>
+            <p style={{ color: '#FACC15', fontSize: '32px', fontWeight: 900, marginTop: '4px' }}>
+              wrapped.vantezzen.io
+            </p>
+          </div>
         </div>
       </div>
     </div>

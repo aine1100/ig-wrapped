@@ -1,10 +1,8 @@
 import React from "react";
+import { motion } from "framer-motion";
 import WrappedContainer, { WrappedSlideProps } from "../WrappedContainer";
-import FatHeading from "../FatHeading";
-import InfoText from "../InfoText";
 import CountUp from "react-countup";
 import formatTimeLength from "@/lib/utils/formatTimeLength";
-import HideForTime from "../HideForTime";
 
 function TotalWatchTime({ statistics }: WrappedSlideProps) {
   const { amount, unit } = formatTimeLength(
@@ -13,20 +11,48 @@ function TotalWatchTime({ statistics }: WrappedSlideProps) {
   const watchTimeMins = Math.round(statistics.useTime.totalUsageTimeSec / 60);
 
   return (
-    <WrappedContainer>
-      <InfoText className="animate-in slide-in-from-bottom fade-in duration-1000">
-        You used Instagram for
-      </InfoText>
-      <FatHeading className="animate-in slide-in-from-bottom fade-in duration-1000">
-        <CountUp end={watchTimeMins} duration={2} /> <br />
-        minutes
-      </FatHeading>
+    <WrappedContainer bg="gradient-blue-green" text="text-white">
+      <div className="flex flex-col items-center justify-center h-full space-y-6 px-4">
+        {/* Context label */}
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-xl md:text-2xl lg:text-3xl text-white/80 font-medium"
+        >
+          You used Instagram for
+        </motion.p>
 
-      <HideForTime time={500}>
-        <InfoText className="animate-in slide-in-from-bottom fade-in duration-1000 delay-500">
+        {/* Huge number */}
+        <motion.div
+          initial={{ scale: 0, rotate: -10 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 15,
+            delay: 0.4,
+          }}
+          className="text-center"
+        >
+          <h1 className="text-7xl md:text-9xl lg:text-10xl font-black text-white leading-none mb-4">
+            <CountUp end={watchTimeMins} duration={2.5} />
+          </h1>
+          <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white/90">
+            minutes
+          </p>
+        </motion.div>
+
+        {/* Additional context */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="text-xl md:text-2xl text-white/70 font-semibold"
+        >
           That's {amount} {unit}!
-        </InfoText>
-      </HideForTime>
+        </motion.p>
+      </div>
     </WrappedContainer>
   );
 }

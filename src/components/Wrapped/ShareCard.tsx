@@ -20,104 +20,109 @@ function ShareCard({
         width: 1080,
         height: 1920,
       }}
-      className="bg-zinc-950 text-white p-16 flex flex-col justify-between relative overflow-hidden font-sans"
+      className="bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 text-white p-16 flex flex-col justify-between relative overflow-hidden font-sans"
     >
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-starship-500 rounded-full blur-[200px] opacity-20 -mr-40 -mt-40"></div>
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-pink-500 rounded-full blur-[150px] opacity-20 -ml-20 -mb-20"></div>
+      {/* Animated gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 via-transparent to-pink-600/30 opacity-50"></div>
+
+      {/* Decorative circles */}
+      <div className="absolute top-20 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-40 left-20 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl"></div>
 
       {/* Header */}
       <div className="z-10">
-        <h1 className="text-6xl font-black uppercase tracking-tighter mb-4">
-          Wrapped for
+        <h1 className="text-8xl font-black mb-6 leading-none">
+          My Instagram
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-starship-400 to-pink-500">
-            Instagram
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300">
+            Wrapped
           </span>
         </h1>
-        <p className="text-zinc-400 text-3xl font-medium">2025 Edition</p>
+        <p className="text-white/70 text-4xl font-bold">2025 Edition</p>
       </div>
 
       {/* Profile Section */}
-      <div className="flex flex-col items-center justify-center z-10 my-10">
-        <div className="relative">
-          <div className="w-64 h-64 rounded-full overflow-hidden border-8 border-zinc-800 shadow-2xl mb-8">
+      <div className="flex flex-col items-center justify-center z-10 my-16">
+        <div className="relative mb-8">
+          <div className="w-80 h-80 rounded-full overflow-hidden border-8 border-white/20 shadow-2xl backdrop-blur-sm">
             {statistics.profilePicture ? (
               <Image
                 src={statistics.profilePicture}
                 alt={statistics.name}
-                width={256}
-                height={256}
+                width={320}
+                height={320}
                 className="w-full h-full object-cover"
                 unoptimized
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
-                <span className="text-8xl font-black text-zinc-700">
+              <div className="w-full h-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
+                <span className="text-9xl font-black text-white/60">
                   {statistics.name.charAt(0).toUpperCase()}
                 </span>
               </div>
             )}
           </div>
-          <div className="absolute -bottom-4 right-10 bg-starship-400 text-zinc-900 font-bold px-6 py-2 rounded-full text-2xl shadow-lg transform rotate-[-6deg]">
-            Top 1% Fan
-          </div>
         </div>
-        <h2 className="text-5xl font-bold mt-4">{statistics.name}</h2>
-        <p className="text-zinc-400 text-2xl mt-2">@instagram_user</p>
+        <h2 className="text-6xl font-black text-white mb-3">{statistics.name}</h2>
+        <div className="bg-white/20 backdrop-blur-md px-8 py-3 rounded-full">
+          <p className="text-white/90 text-3xl font-bold">Top Fan 2025</p>
+        </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-8 z-10">
-        <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-3xl border border-zinc-800/50">
-          <p className="text-zinc-400 text-xl font-medium uppercase tracking-wide mb-2">
-            Time Wasted
+      {/* Stats - Simple Grid with 4 Key Stats */}
+      <div className="grid grid-cols-2 gap-6 z-10 mb-12">
+        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20">
+          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-3">
+            Time Spent
           </p>
-          <p className="text-5xl font-black text-white">
+          <p className="text-7xl font-black text-white leading-none">
             {totalWatchTimeAmount}
-            <span className="text-3xl font-bold text-zinc-500 ml-2">
-              {totalWatchTimeUnit}
-            </span>
+          </p>
+          <p className="text-4xl font-bold text-white/60 mt-2">
+            {totalWatchTimeUnit}
           </p>
         </div>
 
-        <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-3xl border border-zinc-800/50">
-          <p className="text-zinc-400 text-xl font-medium uppercase tracking-wide mb-2">
-            Stories Posted
+        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20">
+          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-3">
+            DMs Sent
           </p>
-          <p className="text-5xl font-black text-white">
+          <p className="text-7xl font-black text-white leading-none">
+            {statistics.directMessages.dmSent.toLocaleString()}
+          </p>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20">
+          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-3">
+            Stories
+          </p>
+          <p className="text-7xl font-black text-white leading-none">
             {statistics.activity.storiesPosted.toLocaleString()}
           </p>
         </div>
 
-        <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-3xl border border-zinc-800/50">
-          <p className="text-zinc-400 text-xl font-medium uppercase tracking-wide mb-2">
-            DMs Received
-          </p>
-          <p className="text-5xl font-black text-white">
-            {statistics.directMessages.dmReceived.toLocaleString()}
-          </p>
-        </div>
-
-        <div className="bg-zinc-900/50 backdrop-blur-sm p-8 rounded-3xl border border-zinc-800/50">
-          <p className="text-zinc-400 text-xl font-medium uppercase tracking-wide mb-2">
+        <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border-2 border-white/20 flex flex-col items-center justify-center">
+          <p className="text-white/70 text-2xl font-bold uppercase tracking-wider mb-4">
             Top Emoji
           </p>
-          <p className="text-6xl">
+          <p className="text-9xl">
             {statistics.emoji.mostUsedEmoji.emoji}
+          </p>
+          <p className="text-3xl font-bold text-white/60 mt-3">
+            ×{statistics.emoji.mostUsedEmoji.count}
           </p>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="z-10 mt-12 flex justify-between items-end border-t border-zinc-800 pt-8">
+      <div className="z-10 flex justify-between items-center border-t-2 border-white/20 pt-8">
         <div>
-          <p className="text-2xl font-bold text-white">ig-wrapped</p>
-          <p className="text-zinc-500 text-xl">Privacy-first analysis</p>
+          <p className="text-3xl font-black text-white">IG Wrapped</p>
+          <p className="text-white/60 text-2xl mt-1">Privacy-first analytics</p>
         </div>
         <div className="text-right">
-          <p className="text-zinc-400 text-xl">Get yours at</p>
-          <p className="text-starship-400 text-2xl font-bold">
+          <p className="text-white/60 text-2xl">Get yours at</p>
+          <p className="text-yellow-300 text-3xl font-black mt-1">
             wrapped.vantezzen.io
           </p>
         </div>

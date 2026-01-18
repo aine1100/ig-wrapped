@@ -148,7 +148,11 @@ export default class WrappedPlayer extends EventEmitter {
 
     this.currentSlideIndex = 0;
     this._loadCurrentSlide();
+    
+    // Emit update event to trigger UI re-render
+    this.emit("update");
   }
+
 
   public get currentSlide(): Slide | null {
     return this.slides[this.currentSlideIndex] || null;

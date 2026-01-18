@@ -218,7 +218,7 @@ function Roundup({ statistics }: WrappedSlideProps) {
                 setIsLoadingShareImage(false);
               }
             }}
-            className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:from-purple-600 hover:via-pink-600 hover:to-orange-600 text-white font-black text-sm md:text-lg px-8 md:px-12 py-4 md:py-6 rounded-full shadow-2xl transform transition-all hover:scale-105"
+            className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:from-purple-600 hover:via-pink-600 hover:to-orange-600 text-white font-black text-sm md:text-lg px-8 md:px-12 py-4 md:py-6 rounded-full shadow-2xl transform transition-all hover:scale-105 cursor-pointer"
             disabled={isLoadingShareImage}
           >
             {isLoadingShareImage ? (
